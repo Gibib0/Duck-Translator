@@ -124,7 +124,7 @@ class DuckTranslator:
 		thread.start()
 
 	def update_counter_label(self):
-		self.counter_label.config(text=f'{self.duck_count} 🦆')
+		self.counter_label.config(text=f'Ducks arrived: {self.duck_count} 🦆')
 
 		if self.duck_count == 300 and not self.scarer_shown:
 			self.scarer_shown = True
