@@ -59,3 +59,23 @@ class DuckTranslator:
 		self.create_widgets()
 		self.play_music()
 		self.start_counter()
+
+
+	def create_widgets(self):
+		label = tk.Label(self.root, text = 'DUCK Translator',
+										font=('Comic Sans', 20, 'bold'), bg='white', relief='raised')
+		label.pack(pady=10)
+
+		self.text_input = tk.Entry(self.root, width=50, font=('Comic Sans', 12))
+		self.text_input.pack(pady=5)
+		self.text_input.insert(0, 'Enter your text here.....')
+		self.text_input.bind('<FocusIn>', self.clear_placeholder)
+
+	def play_music(self):
+		mixer.music.play(-1)
+
+	def pause_music(self):
+		mixer.music.pause()
+
+	def resume_music(self):
+		mixer.music.unpause()
