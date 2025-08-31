@@ -112,3 +112,23 @@ class DuckTranslator:
 
 		self.text_output.delete(1.0, tk.END)
 		self.text_output.insert(tk.END, duck_translation)
+
+	def show_screamer(self):
+		self.pause_music()
+
+		screamer_window = tk.Toplevel(self.root)
+		screamer_window.geometry('400x400')
+		screamer_window.attributes('-topmost', True)
+
+		label = tk.Label(screamer_window, image = self.screamer_photo)
+		label.pack()
+
+		self.scary_sound.play()
+
+		self.root.after(1000, lambda: self.close_screamer(screamer_window))
+
+if __name__ == '__main__':
+	root = tk.Tk()
+	app = DuckTranslator(root)
+	root.protocol('WM_DELETE_WINDOW', app.on_closing)
+	root.mainloop()
