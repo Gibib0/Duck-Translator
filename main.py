@@ -79,3 +79,36 @@ class DuckTranslator:
 
 	def resume_music(self):
 		mixer.music.unpause()
+
+	def duck_counter(self):
+		def counter_thread():
+			while self.counter_running:
+				time.sleep(1)
+				self.duck_count += 1
+				self.root.after(0, self.update_counter_label)
+		
+		thread = threading.Thread(target=counter_thread, daemon=True)
+		thread.start()
+
+	def update_counter_label(self):
+		self.counter_label.config(text=f'{self.duck_count} 🦆')
+
+		if self.duck_count == 100 and not self.scarer_shown:
+			self.screamer = True
+			self.screamer()
+
+	def translate_text(self):
+		self.duck_sound()
+		user_text = self.text_input.get()
+
+		if 'Я тебя люблю' in user_text.lower():
+			self.show_love()
+			return
+		
+		duck_syllables = ['Quack', 'quack-quack', 'quack', 'HONK', 'honk-honk', 'Quacky', 'quacky', 'Quack?!', '~quack~', '...quack', '(webble)', '(splach)', '(paddle)', 'Quack~ quackle~']
+
+		duck_words = [random.choice(duck_syllables) for _ in rande(random.randint(3, 10))]
+		duck_translation = ' '.join(duck_words)
+
+		self.text_output.delete(1.0, tk.END)
+		self.text_output.insert(tk.END, duck_translation)
