@@ -107,7 +107,7 @@ class DuckTranslator:
 		
 		duck_syllables = ['Quack', 'quack-quack', 'quack', 'HONK', 'honk-honk', 'Quacky', 'quacky', 'Quack?!', '~quack~', '...quack', '(webble)', '(splach)', '(paddle)', 'Quack~ quackle~']
 
-		duck_words = [random.choice(duck_syllables) for _ in rande(random.randint(3, 10))]
+		duck_words = [random.choice(duck_syllables) for _ in range(random.randint(3, 10))]
 		duck_translation = ' '.join(duck_words)
 
 		self.text_output.delete(1.0, tk.END)
