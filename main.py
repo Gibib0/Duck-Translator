@@ -58,7 +58,7 @@ class DuckTranslator:
 
 		self.create_widgets()
 		self.play_music()
-		self.start_counter()
+		self.duck_counter()
 
 
 	def create_widgets(self):
@@ -70,6 +70,28 @@ class DuckTranslator:
 		self.text_input.pack(pady=5)
 		self.text_input.insert(0, 'Enter your text here.....')
 		self.text_input.bind('<FocusIn>', self.clear_placeholder)
+
+		translate_btn = tk.Button(self.root, text='Translate to Duck',
+															command=self.translate_text, bg='yellow', 
+															font=('Comic Sans', 10))
+		translate_btn.pack(pady=5)
+
+		self.text_output = tk.Text(self.root, width=50, height=6, font=('Comic Sans', 10))
+		self.text_output.pack(pady=10)
+
+		praise_btn = tk.Button(self.root, text='Praise the Duck',
+													command=self.praise_duck, bg='green', fg='white',
+													font=('Comic Sans', 12, 'bold'))
+		praise_btn.pack(pady=10)
+
+		self.counter_label = tk.Label(self.root, text='0 🦆',
+																font=('Comic Sans', 12), bg='lightgrey')
+		self.counter_label.pack(side=tk.BOTTOM, pady=10)
+
+
+	def clear_placeholder(self, event):
+		if self.text_input.get() == "Enter your text here.....":
+			self.text_input.delete(0, tk.END)
 
 	def play_music(self):
 		mixer.music.play(-1)
@@ -113,7 +135,7 @@ class DuckTranslator:
 		self.text_output.delete(1.0, tk.END)
 		self.text_output.insert(tk.END, duck_translation)
 
-	def show_screamer(self):
+	def screamer(self):
 		self.pause_music()
 
 		screamer_window = tk.Toplevel(self.root)
@@ -123,9 +145,50 @@ class DuckTranslator:
 		label = tk.Label(screamer_window, image = self.screamer_photo)
 		label.pack()
 
-		self.scary_sound.play()
+		self.screamer_sound.play()
 
 		self.root.after(1000, lambda: self.close_screamer(screamer_window))
+
+	def on_closing(self):
+		"""Действие при закрытии окна."""
+		self.counter_running = False
+		self.root.destroy()
+
+	def show_love(self):
+		self.pause_music()
+		self.ILoveU_sound.play()
+
+		love_window = tk.Toplevel(self.root)
+		love_window.geometry('300x500')
+
+		label = tk.Label(love_window, image=self.romantic_photo)
+		label.pack(pady=10)
+
+		close_btn = tk.Button(love_window, text='OK', command=lambda: self.clode_love_window(love_window), bg = 'pink', font=('Comic Sans', 12))
+		close_btn.pack(pady=10)
+
+	def clode_love_window(self, window):
+		window.destroy()
+		messagebox.showinfo('And I love u /ᐠ｡ꞈ｡ᐟ\ ')
+		self.resume_music()
+
+	def praise_duck(self):
+		self.pause_music()
+		self.holy_sound.play()
+
+		praise_window = tk.Toplevel(self.root)
+		praise_window.geometry('300x300')
+
+		label = tk.Label(praise_window, image=self.rating_up_photo)
+		label.pack(pady=20)
+
+		text_label = tk(praise_window, text='U made the right choice!\n The Great Duck accepred ur praise.', font=('Comic Sans', 10))
+		close_btn = tk.Label(praise_window, text='OK', command=lambda: self.slode_praise_window(praise_window), bg='skyblue', font=('Comic Sans', 12))
+		close_btn.pack(pady=10)
+
+	def close_praise_window(self, window):
+		window.destroy()
+		self.resume_music()
 
 if __name__ == '__main__':
 	root = tk.Tk()
