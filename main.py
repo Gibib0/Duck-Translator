@@ -160,7 +160,7 @@ class DuckTranslator:
 		self.duck_sound.set_volume(0.5)
 		self.duck_sound.play()
 
-		if 'я тебя люблю' in user_text.lower():
+		if('я тебя люблю' in user_text.lower() or 'люблю тебя' in user_text.lower() or 'я тебя люблю' in user_text.lower()):
 			self.show_love()
 			return
 		
@@ -178,7 +178,7 @@ class DuckTranslator:
 		self.ILoveU_sound.play()
 		
 		love_window = tk.Toplevel(self.root)
-		love_window.geometry('600x800')
+		love_window.geometry('600x650')
 
 		label = tk.Label(love_window, image=self.romantic_photo)
 		label.pack(pady=10)
